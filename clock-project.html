@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Clock Task</title>
+        <link rel="icon"  href="http://www.free-icons-download.net/images/round--clock-icon-86811.png">
+        <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+        <style>
+            body {
+                background-image: url("https://wallpaperscraft.com/image/sea_sunset_landscape_82764_2560x1600.jpg");
+                background: black;
+                background-repeat: no-repeat;
+                background-size: cover
+            }.border{
+                width: 210px;
+                height: 210px;
+                border: 3px solid blue;
+                box-shadow: 0 0 10px 0 ;
+                border-radius: 50%;
+                position: relative;
+                margin: 0 auto;    
+                top:50px;   
+            }.border:hover{
+                box-shadow: 0 0 25px 0 ;
+            }.clock {
+                width: 200px;
+                height: 200px;
+                background-image: url('https://thehub.se/files/58bed978a89fa9217999b676/logo_upload-2b55aea71788d9d09b2b251c12efb8e4.png');
+                background-size: contain;
+                margin: 0 auto; 
+                position: relative;
+                top: 5px;
+            }#hand-second {
+                width: 1px ;
+                height: 50% ;
+                background-color: blue;
+                transform-origin: 50% 80%;    
+                position: absolute;
+                top: 10%;
+                left: 50%;
+            }#hand-minute {
+                width: 2px ;
+                height: 40% ;
+                background-color: blue;
+                transform-origin: 50% 80%;    
+                position: absolute;
+                top: 18%;
+                left: 50%;
+                margin-left: -1px;
+            }#hand-hour {
+                width: 5px ;
+                height: 25% ;
+                background-color: blue;
+                transform-origin: 50% 80%;    
+                position: absolute;
+                top: 30%;
+                left: 50%;
+                margin-left: -2px;
+            }.digital-clock{
+                font-family: 'Orbitron', sans-serif;
+                color: white;
+                font-weight: 400;
+                position: relative;
+                bottom: 10%;
+                text-align: center;
+                margin: 0 auto;
+                top: 50px;
+                padding: 10px;
+                width: 10%;
+            }.digital-clock:hover{
+                font-weight: 900;  
+            }#hour {
+                font-size: 6em;    
+            }#minute {
+                font-size: 3em;   
+            }#second { 
+                font-size: 1.5em;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="border">
+            <div class="clock">
+                <div id="hand-hour"></div>
+                <div id="hand-minute"></div>
+                <div id="hand-second"></div>            
+            </div>
+        </div>
+        
+        <div class="digital-clock">
+            <div id="hour"></div>
+            <div id="minute"></div>
+            <div id="second"></div>
+        </div>
+        
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script >
+            $(document).ready(function() {
+    
+            setInterval(function(){
+                var date = new Date();
+                updateTime(date);
+                updateClock(date);
+                changeBackground();
+                
+                },1000);
+
+            //Analog clock
+
+            function updateClock(date){
+                var secondHand = document.getElementById("hand-second").style;
+                var minuteHand = document.getElementById("hand-minute").style;
+                var hourHand = document.getElementById("hand-hour").style;
+
+                secondHand.transform= "rotate(" + date.getSeconds() * 6 + "deg)";
+                minuteHand.transform= "rotate(" + date.getMinutes() * 6 + "deg)";
+                hourHand.transform= "rotate(" + (date.getHours() * 30 + date.getMinutes() * 0.5) + "deg)";
+            }
+
+
+            // Digital Clock
+
+            function updateTime(date){
+                
+                //Hour Digital
+                var timeH = document.getElementById('hour');
+                var hour = date.getHours();
+                timeH.innerHTML = hour;
+
+                //Minute Digital
+                var timeM = document.getElementById('minute');
+                var minute = date.getMinutes();
+                timeM.innerHTML = minute;
+
+                //Hour Digital
+                var timeS = document.getElementById('second');
+                var second = date.getSeconds();
+                timeS.innerHTML = second;
+            }
+
+            // Change Background Image by Day time
+
+            function change(imageUrl){
+            $('body').css('background-image', 'url(' + imageUrl + ')');            
+            }
+
+            function changeBackground(){
+            var time = new Date().getHours() ;
+
+            if ( (time >= 0  && time < 4) || (time >= 20  && time <= 23) ){
+                change ("https://wallpaperfx.com/uploads/wallpapers/2013/12/19/14074/preview_night-light-over-the-sea.jpeg");        
+            } else if ( time >= 4  && time < 8 ){
+                change ("https://ak9.picdn.net/shutterstock/videos/768679/thumb/1.jpg");            
+            }else if ( time >= 8  && time < 12 ){
+                change ("https://www.pixelstalk.net/wp-content/uploads/2015/05/Blue-sea-landscape-wallpaper.jpg");        
+            }else if ( time >= 12  && time < 16 ){
+                change ("https://ak0.picdn.net/shutterstock/videos/22119730/thumb/1.jpg");        
+            }else if ( time >= 16  && time < 20 ){
+                change ("https://wallpaperscraft.com/image/sea_sunset_landscape_82764_2560x1600.jpg");        
+            }   
+            };
+
+            });
+        </script>
+        
+    </body>
+</html>
